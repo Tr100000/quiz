@@ -1,3 +1,3 @@
 # quiz
 
-This is a work-in-progress.
+*"It works, and that's what's important."* -Tr100000
