@@ -66,7 +66,7 @@ function loadData(quiz: data.QuizData) {
 function startQuiz() {
     if (currentQuiz != null) {
         progressBar.value = 0;
-        progressBar.max = currentQuizQuestionCount;
+        progressBar.max = currentQuizQuestionCount - 1;
 
         reset();
 

@@ -1,3 +1,3 @@
 # quiz
 
-*"It works, and that's what's important."* -Tr100000
+*"It works, and that's what's important."* -Me

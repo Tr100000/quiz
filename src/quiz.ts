@@ -38,7 +38,7 @@ export function changeCurrentQuestion(nextQuestion: number) {
         currentQuestion = nextQuestion;
         document.getElementById(`q${currentQuestion}`)!.setAttribute("style", "");
     
-        main.progressBar.value = currentQuestion + 1;
+        main.progressBar.value = currentQuestion;
         currentQuestionText.innerHTML = `Question ${currentQuestion + 1}`;
     
         const question = questions[currentQuestion].question;
