@@ -37,6 +37,11 @@ export function loadDataFromUrl(url: string) {
         })
         .then(text => {
             main.parseData(text);
+            isLoadingData = false;
+        })
+        .catch(() => {
+            alert("Failed to load data!");
+            isLoadingData = false;
         });
     }
 }
