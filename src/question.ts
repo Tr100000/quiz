@@ -3,6 +3,7 @@ import { data } from "./quiz-data.ts";
 export abstract class QuizQuestion {
     readonly question: data.Question;
     readonly index: number;
+    matcher: RegExp | undefined;
 
     constructor(question: data.Question, index: number) {
         this.question = question;
@@ -10,7 +11,12 @@ export abstract class QuizQuestion {
     }
 
     public abstract setupHtml(): HTMLDivElement;
-    public abstract isCorrect(): boolean;
+    public abstract getCurrentAnswer(): string;
+    public abstract getClassName(): string;
+
+    public isCorrect(): boolean {
+        return this.matcher?.test(this.getCurrentAnswer()) ?? false;
+    }
 }
 
 export abstract class QuizQuestionWithOptions extends QuizQuestion {
@@ -38,6 +44,14 @@ export abstract class QuizQuestionWithOptions extends QuizQuestion {
             button.className = "question_button";
             button.id = `q${this.index}_button_${i}`;
 
+            button.onclick = () => {
+                if (this.selected > 0) {
+                    this.buttons[this.selected - 1].className = "question_button";
+                }
+                this.selected = i + 1;
+                button.className = "question_button_selected";
+            };
+
             this.buttons[i] = button;
             div.appendChild(button);
         }
@@ -45,8 +59,8 @@ export abstract class QuizQuestionWithOptions extends QuizQuestion {
         return div;
     }
 
-    public override isCorrect(): boolean {
-        return this.selected.toString() == this.question.correctAnswer!;
+    public getCurrentAnswer(): string {
+        return this.selected.toString();
     }
 }
 
@@ -56,17 +70,26 @@ export abstract class QuizBooleanQuestion extends QuizQuestionWithOptions {
 
     constructor(question: data.Question, index: number) {
         super(question, index, 2);
+        this.matcher = new RegExp(question.correctAnswer!.toString());
     }
 
     public override textForOption(i: number): string {
         switch (i) {
             case 0:
-                return this.falseText();
-            case 1:
                 return this.trueText();
+            case 1:
+                return this.falseText();
             default:
                 return "";
         }
+    }
+
+    public getCurrentAnswer(): string {
+        return this.selected == 1 ? "true" : (this.selected == 2 ? "false" : "");
+    }
+
+    public getClassName(): string {
+        return "boolean";
     }
 }
 
@@ -93,13 +116,17 @@ export class QuizTrueOrFalseQuestion extends QuizBooleanQuestion {
 export class QuizMultipleChoiceQuestion extends QuizQuestionWithOptions {
     constructor(question: data.Question, index: number) {
         super(question, index, question.options!.length);
+        this.matcher = new RegExp(question.correctAnswer!);
+    }
+
+    public getClassName(): string {
+        return "multiple_choice";
     }
 }
 
 export class QuizTextInputQuestion extends QuizQuestion {
     readonly matcher: RegExp;
-    htmlInput: HTMLInputElement | undefined;
-    input: string = "";
+    input: HTMLInputElement | undefined;
 
     constructor(question: data.Question, index: number) {
         super(question, index);
@@ -108,16 +135,23 @@ export class QuizTextInputQuestion extends QuizQuestion {
 
     public setupHtml(): HTMLDivElement {
         const div = document.createElement("div");
-        const input = document.createElement("input");
+        this.input = document.createElement("input");
 
-        input.type = "text";
-        input.className = "question_input";
-        input.id = `q${this.index}_input`;
+        this.input.type = "text";
+        this.input.className = "question_input";
+        this.input.id = `q${this.index}_input`;
+        this.input.setAttribute("autocomplete", "off");
+
+        div.appendChild(this.input);
         
         return div;
     }
 
-    public isCorrect(): boolean {
-        return this.matcher.test(this.input);
+    public getCurrentAnswer(): string {
+        return this.input?.value ?? "";
+    }
+
+    public getClassName(): string {
+        return "text_input";
     }
 }

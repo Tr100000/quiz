@@ -17,5 +17,6 @@ export namespace data {
         text: string | undefined;
         options: string[] | undefined;
         correctAnswer: string | undefined;
+        correctAnswerDisplay: string | undefined;
     }
 }

@@ -6,7 +6,7 @@ export namespace utils {
         }
     }
 
-    export function valueWithDefault<T>(value: T | undefined | null, defaultValue: T): T {
-        return value ?? defaultValue;
+    export function isNullOrWhitespace(input: string): boolean {
+        return !input || !input.trim();
     }
 }

@@ -1,22 +1,50 @@
 import * as main from "./main.ts";
 import { QuizMultipleChoiceQuestion, QuizQuestion, QuizTextInputQuestion, QuizTrueOrFalseQuestion, QuizYesOrNoQuestion } from "./question.ts";
-import { data } from "./quiz-data.ts";  
+import { data } from "./quiz-data.ts";
 import { utils } from "./utils.ts";
 
 export let currentQuestion: number;
 export let questions: QuizQuestion[];
+
+export const previousQuestionButton = document.getElementById("previous") as HTMLButtonElement;
+export const nextQuestionButton = document.getElementById("next") as HTMLButtonElement;
+export const currentQuestionText = document.getElementById("current_question") as HTMLParagraphElement;
+previousQuestionButton.onclick = previousQuestion;
+nextQuestionButton.onclick = nextQuestion;
 
 export const topText = document.getElementById("top_text") as HTMLHeadingElement;
 export const questionText = document.getElementById("question_text") as HTMLHeadingElement;
 
 export const questionContentsDiv = document.getElementById("question_contents") as HTMLDivElement;
 
-export function nextQuestion() {
-    currentQuestion++;
-    main.progressBar.value = currentQuestion;
+export const finishQuizButton = document.getElementById("end") as HTMLButtonElement;
+finishQuizButton.onclick = finishQuiz;
 
-    topText.innerHTML = utils.valueWithDefault(questions[currentQuestion].question.top_text, "");
-    questionText.innerHTML = questions[currentQuestion].question.text!; 
+export const mistakesDiv = document.getElementById("mistakes") as HTMLDivElement;
+
+export function nextQuestion() {
+    changeCurrentQuestion(currentQuestion + 1);
+}
+
+export function previousQuestion() {
+    changeCurrentQuestion(currentQuestion - 1);
+}
+
+export function changeCurrentQuestion(nextQuestion: number) {
+    if (nextQuestion >= 0 && nextQuestion < questions.length) {
+        if (currentQuestion >= 0) {
+            document.getElementById(`q${currentQuestion}`)!.setAttribute("style", "display: none;");
+        }
+        currentQuestion = nextQuestion;
+        document.getElementById(`q${currentQuestion}`)!.setAttribute("style", "");
+    
+        main.progressBar.value = currentQuestion + 1;
+        currentQuestionText.innerHTML = `Question ${currentQuestion + 1}`;
+    
+        const question = questions[currentQuestion].question;
+        topText.innerHTML = question.top_text ?? "";
+        questionText.innerHTML = question.text ?? "";
+    }
 }
 
 export function reset() {
@@ -26,8 +54,7 @@ export function reset() {
     if (main.currentQuiz != null) {
         questions = new Array(main.currentQuizQuestionCount);
         let questionIndex = 0;
-        for (const element of main.currentQuiz.quiz) {
-            let part = element;
+        for (const part of main.currentQuiz.quiz) {
 
             if (part.randomizeQuestionOrder) {
                 utils.shuffleArray(part.questions);
@@ -35,14 +62,20 @@ export function reset() {
             
             for (let j = 0; j < part.questions.length; j++) {
                 let question = makeQuizQuestion(part.questions[j], j);
-                questions[currentQuestion] = question;
-                questionContentsDiv.appendChild(question.setupHtml());
-            }
+                questions[questionIndex] = question;
 
-            questionIndex++;
+                const div = question.setupHtml();
+                div.classList.add("question");
+                div.classList.add(`question_${question.getClassName()}`);
+                div.id = `q${questionIndex}`;
+                questionContentsDiv.appendChild(div);
+                div.setAttribute("style", "display: none;");
+
+                questionIndex++;
+            }
         }
 
-        nextQuestion();
+        changeCurrentQuestion(0);
     }
 }
 
@@ -57,6 +90,30 @@ function makeQuizQuestion(question: data.Question, index: number): QuizQuestion 
         case "text_input":
             return new QuizTextInputQuestion(question, index);
         default:
+            alert(`Invalid question type for question ${index}!`);
             throw new Error("sorry");
+    }
+}
+
+function finishQuiz() {
+    let unanswered = 0;
+    for (const question of questions) {
+        if (utils.isNullOrWhitespace(question.getCurrentAnswer())) {
+            unanswered++;
+        }
+    }
+    if (confirm(`Are you really finished?${unanswered > 0 ? `\n\nYou have ${unanswered} unanswered questions.` : ""}`)) {
+        main.mainDiv.hidden = true;
+        main.resultsDiv.hidden = false;
+
+        let correct = 0;
+        for (const question of questions) {
+            console.log(`(${question.index}) Your answer: ${question.getCurrentAnswer()}, correct answer: ${question.matcher}`);
+            if (question.isCorrect()) {
+                correct++;
+            }
+        }
+
+        document.getElementById("score")!.innerHTML = `Your score: ${Math.round(correct / questions.length * 1000) / 10}% (${correct}/${questions.length})`;
     }
 }

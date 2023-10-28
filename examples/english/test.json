@@ -23,6 +23,14 @@
                     "type": "text_input",
                     "text": "What does XML stand for?",
                     "correctAnswer": "Extensible Markup Language"
+                },
+                {
+                    "type": "multiple_choice",
+                    "text": "Multiple choice question",
+                    "options": [
+                        "correct", "wrong", "wrong", "wrong"
+                    ],
+                    "correctAnswer": "1"
                 }
             ]
         }

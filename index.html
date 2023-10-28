@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8" />
         <link rel="stylesheet" type="text/css" href="src/style.css">
-        <title>Quiz</title>
+        <title>Quiz Player</title>
     </head>
 
     <body>
@@ -42,13 +42,32 @@
         </div>
 
         <div class="main" id="mainDiv" hidden>
-            <div class="progress">
-                <label for="progress">Quiz Progress: </label>
-                <progress id="progress"></progress>
+            <div class="header">
+                <div class="progress">
+                    <button id="end">Finish & Show Results</button>
+                    <div>
+                        <label for="progress" class="noselect">Quiz Progress: </label>
+                        <progress id="progress"></progress>
+                    </div>
+                </div>
+                <div class="controls">
+                    <button id="previous">&lt;</button>
+                    <p id="current_question">Question 1</p>
+                    <button id="next">&gt;</button>
+                </div>
             </div>
+
             <h1 id="top_text">Top Text</h1>
             <h3 id="question_text">Question Text</h3>
             <div id="question_contents"></div>
+        </div>
+
+        <div class="results" id="resultsDiv" hidden>
+            <p id="score"></p>
+
+            <div id="mistakes"></div>
+
+            <p>Reload this page to do another quiz.</p>
         </div>
 
         <script type="module" src="/src/main.ts"></script>

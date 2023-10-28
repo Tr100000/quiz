@@ -1,7 +1,6 @@
 import { loadDataFromFile, loadDataFromUrl } from "./load-data";
 import { reset } from "./quiz";
 import { data } from "./quiz-data";
-import { utils } from "./utils";
 
 export const uploadInput = document.getElementById("upload") as HTMLInputElement;
 export const fileUseButton = document.getElementById("use_file") as HTMLButtonElement;
@@ -30,8 +29,11 @@ export const progressBar = document.getElementById("progress") as HTMLProgressEl
 export const fileDiv = document.getElementById("fileDiv") as HTMLDivElement;
 export const confirmDiv = document.getElementById("confirmDiv") as HTMLDivElement;
 export const mainDiv = document.getElementById("mainDiv") as HTMLDivElement;
+export const resultsDiv = document.getElementById("resultsDiv") as HTMLDivElement;
+fileDiv.hidden = false;
 confirmDiv.hidden = true;
 mainDiv.hidden = true;
+resultsDiv.hidden = true;
 
 export function parseData(jsonText: string) {
     loadData(JSON.parse(jsonText) as data.QuizData);
@@ -44,16 +46,17 @@ function loadData(quiz: data.QuizData) {
         currentQuizQuestionCount += part.questions.length;
 
         for (const question of part.questions) {
-            question.top_text = utils.valueWithDefault(question.top_text, part.defaults?.top_text);
-            question.type =utils. valueWithDefault(question.type, part.defaults?.type);
-            question.text = utils.valueWithDefault(question.text, part.defaults?.text);
-            question.options = utils.valueWithDefault(question.options, part.defaults?.options);
-            question.correctAnswer = utils.valueWithDefault(question.correctAnswer, part.defaults?.correctAnswer);
+            question.top_text = question.top_text ?? part.defaults?.top_text;
+            question.type = question.type ?? part.defaults?.type;
+            question.text = question.text ?? part.defaults?.text;
+            question.options = question.options ?? part.defaults?.options;
+            question.correctAnswer = question.correctAnswer ?? part.defaults?.correctAnswer;
+            question.correctAnswerDisplay = question.correctAnswer ?? part.defaults?.correctAnswerDisplay ?? question.correctAnswer;
         }
     }
 
     titleText.innerHTML = quiz.title;
-    descriptionText.innerHTML = utils.valueWithDefault(quiz.description, "");
+    descriptionText.innerHTML = quiz.description ?? "";
     questionCountSpan.innerHTML = currentQuizQuestionCount.toString();
 
     confirmDiv.hidden = false;
