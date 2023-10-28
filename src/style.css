@@ -2,7 +2,7 @@
     user-select: none;
 }
 
-button {
+button, input::file-selector-button, .clickable {
     cursor: pointer;
 }
 
