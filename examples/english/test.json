@@ -28,9 +28,9 @@
                     "type": "multiple_choice",
                     "text": "Multiple choice question",
                     "options": [
-                        "correct", "wrong", "wrong", "wrong"
+                        "correct", "wrong", "correct", "wrong"
                     ],
-                    "correctAnswer": "1"
+                    "correctAnswer": "1|3"
                 }
             ]
         }

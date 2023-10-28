@@ -2,6 +2,10 @@
     user-select: none;
 }
 
+button {
+    cursor: pointer;
+}
+
 .file {
     padding: 5px;
     border: 10px;
