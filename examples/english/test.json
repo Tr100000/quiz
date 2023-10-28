@@ -1,5 +1,5 @@
 {
-    "$schema": "../../schemas/quiz.json",
+    "$schema": "https://raw.githubusercontent.com/Tr100000/quiz/main/schemas/quiz.json",
     "title": "Example Quiz",
     "description": "This is an example quiz!",
     "quiz": [
