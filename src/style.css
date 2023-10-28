@@ -1,5 +1,54 @@
-div {
-    position: absolute;
-    left: 50%;
-    top: 20%;
+.file {
+    padding: 5px;
+    border: 10px;
+    border-radius: 5px;
+    width: fit-content;
+    background-color: gray;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.file > div {
+    border: 2px solid black;
+    padding: 10px;
+    padding-top: 0px;
+    border-radius: 5px;
+}
+
+.file > div > p {
+    text-align: center;
+}
+
+.file > div > section {
+    display: grid;
+    grid-template-columns: 1fr 50px;
+    gap: 10px;
+}
+
+.confirm, .main {
+    padding: 10px;
+    margin: 10px;
+    background-color: ghostwhite;
+    border: 10px;
+    border-radius: 4px;
+}
+
+#quiz_title {
+    text-align: center;
+}
+
+.confirm > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.main h1, .main h3 {
+    text-align: center;
+}
+
+.progress {
+    text-align: right;
 }

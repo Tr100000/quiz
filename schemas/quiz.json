@@ -1,0 +1,45 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Quiz Data",
+    "description": "Data for quizzez",
+    "type": "object",
+
+    "properties": {
+        "title": {
+            "type": "string",
+            "description": "The title for the quiz"
+        },
+        "description": {
+            "type": "string",
+            "description": "The description for the quiz"
+        },
+        "quiz": {
+            "type": "array",
+            "description": "The quiz data",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "randomizeQuestionOrder": {
+                        "type": "boolean",
+                        "description": "Should the order of the questions be randomized?"
+                    },
+                    "defaults": {
+                        "$ref": "question.json",
+                        "description": "Default properties for questions"
+                    },
+                    "questions": {
+                        "type": "array",
+                        "description": "The questions",
+                        "items": {
+                            "$ref": "question.json"
+                        },
+                        "minItems": 1
+                    }
+                },
+                "required": ["questions"]
+            },
+            "minItems": 1
+        }
+    },
+    "required": ["title", "quiz"]
+}

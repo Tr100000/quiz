@@ -3,11 +3,54 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>Title</title>
+        <link rel="stylesheet" type="text/css" href="src/style.css">
+        <title>Quiz</title>
     </head>
 
     <body>
-        <div id="counter"></div>
+        <div class="file" id="fileDiv">
+            <div>
+                <p>Load From File</p>
+                <section>
+                    <input type="file" id="upload" accept=".json" />
+                    <button id="use_file">Use</button>
+                </section>
+            </div>
+            <div>
+                <p>Load From URL</p>
+                <section>
+                    <input type="url" id="file_url" />
+                    <button id="use_url">Use</button>
+                </section>
+            </div>
+            <div>
+                <p>Load Example</p>
+                <section>
+                    <input type="text" id="example" />
+                    <button id="use_example">Use</button>
+                </section>
+            </div>
+        </div>
+
+        <div class="confirm" id="confirmDiv" hidden>
+            <h1 id="quiz_title">Quiz Title</h1>
+            <p id="quiz_description">Quiz Description</p>
+            <div>
+                <p><span id="quiz_question_count">0</span> questions</p>
+                <button id="quiz_start">Start Quiz</button>
+            </div>
+        </div>
+
+        <div class="main" id="mainDiv" hidden>
+            <div class="progress">
+                <label for="progress">Quiz Progress: </label>
+                <progress id="progress"></progress>
+            </div>
+            <h1 id="top_text">Top Text</h1>
+            <h3 id="question_text">Question Text</h3>
+            <div id="question_contents"></div>
+        </div>
+
         <script type="module" src="/src/main.ts"></script>
     </body>
 </html>

@@ -1,0 +1,30 @@
+{
+    "$schema": "../../schemas/quiz.json",
+    "title": "Example Quiz",
+    "description": "This is an example quiz!",
+    "quiz": [
+        {
+            "randomizeQuestionOrder": true,
+            "defaults": {
+                "top_text": "Answer the following question:"  
+            },
+            "questions": [
+                {
+                    "type": "yes_or_no",
+                    "text": "Is HTML a programming language?",
+                    "correctAnswer": "false"
+                },
+                {
+                    "type": "yes_or_no",
+                    "text": "Is JavaScript a programming language?",
+                    "correctAnswer": "true"
+                },
+                {
+                    "type": "text_input",
+                    "text": "What does XML stand for?",
+                    "correctAnswer": "Extensible Markup Language"
+                }
+            ]
+        }
+    ]
+}
