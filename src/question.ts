@@ -68,7 +68,7 @@ export abstract class QuizQuestionWithOptions extends QuizQuestion {
     }
 
     public getCurrentAnswer(): string {
-        return this.selected.toString();
+        return this.selected == 0 ? "" : this.selected.toString();
     }
 }
 

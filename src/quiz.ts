@@ -102,7 +102,7 @@ function finishQuiz() {
             unanswered++;
         }
     }
-    if (confirm(`Are you really finished?${unanswered > 0 ? `\n\nYou have ${unanswered} unanswered questions.` : ""}`)) {
+    if (confirm(`Are you really finished?${unanswered > 0 ? `\n\nYou have ${unanswered} unanswered question${unanswered > 1 ? "s" : ""}.` : ""}`)) {
         main.mainDiv.hidden = true;
         main.resultsDiv.hidden = false;
 
@@ -110,7 +110,6 @@ function finishQuiz() {
 
         let correct = 0;
         for (const question of questions) {
-            console.log(`(${question.index}) Your answer: ${question.getCurrentAnswer()}, correct answer: ${question.matcher}`);
             if (question.isCorrect()) {
                 correct++;
             }
