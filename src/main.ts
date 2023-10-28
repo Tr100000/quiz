@@ -51,7 +51,7 @@ function loadData(quiz: data.QuizData) {
             question.text = question.text ?? part.defaults?.text;
             question.options = question.options ?? part.defaults?.options;
             question.correctAnswer = question.correctAnswer ?? part.defaults?.correctAnswer;
-            question.correctAnswerDisplay = question.correctAnswer ?? part.defaults?.correctAnswerDisplay ?? question.correctAnswer;
+            question.correctAnswerDisplay = question.correctAnswerDisplay ?? part.defaults?.correctAnswerDisplay;
         }
     }
 

@@ -96,3 +96,16 @@
     text-align: center;
     font-size: large;
 }
+
+table, td {
+    border: 1px solid #333333;
+}
+
+td {
+    padding: 2px;
+}
+
+thead, tfoot {
+    background-color: #333333;
+    color: white;
+}

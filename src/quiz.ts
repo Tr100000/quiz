@@ -20,7 +20,7 @@ export const questionContentsDiv = document.getElementById("question_contents") 
 export const finishQuizButton = document.getElementById("end") as HTMLButtonElement;
 finishQuizButton.onclick = finishQuiz;
 
-export const mistakesDiv = document.getElementById("mistakes") as HTMLDivElement;
+export const mistakesTableBody = document.getElementById("mistakes") as HTMLTableSectionElement;
 
 export function nextQuestion() {
     changeCurrentQuestion(currentQuestion + 1);
@@ -106,14 +106,45 @@ function finishQuiz() {
         main.mainDiv.hidden = true;
         main.resultsDiv.hidden = false;
 
+        const mistakes: QuizQuestion[] = new Array();
+
         let correct = 0;
         for (const question of questions) {
             console.log(`(${question.index}) Your answer: ${question.getCurrentAnswer()}, correct answer: ${question.matcher}`);
             if (question.isCorrect()) {
                 correct++;
             }
+            else {
+                mistakes.push(question);
+            }
         }
 
         document.getElementById("score")!.innerHTML = `Your score: ${Math.round(correct / questions.length * 1000) / 10}% (${correct}/${questions.length})`;
+
+        if (mistakes.length > 0) {
+            for (const mistake of mistakes) {
+                const row = document.createElement("tr");
+                const indexData = document.createElement("td");
+                const questionData = document.createElement("td");
+                const yourAnswerData = document.createElement("td");
+                const correctAnswerData = document.createElement("td");
+
+                indexData.innerHTML = (mistake.index + 1).toString();
+                questionData.innerHTML = mistake.question.text!;
+                yourAnswerData.innerHTML = mistake.getCurrentAnswerDisplay() ?? mistake.getCurrentAnswer();
+                correctAnswerData.innerHTML = mistake.question.correctAnswerDisplay ?? mistake.getCorrectAnswerDisplay() ?? mistake.question.correctAnswer ?? "";
+
+                row.appendChild(indexData);
+                row.appendChild(questionData);
+                row.appendChild(yourAnswerData);
+                row.appendChild(correctAnswerData);
+
+                mistakesTableBody.appendChild(row);
+            }
+        }
+        else {
+            document.getElementById("mistakesTable")!.hidden = true;
+            document.getElementById("perfect")!.hidden = false;
+        }
     }
 }

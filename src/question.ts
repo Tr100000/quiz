@@ -17,6 +17,14 @@ export abstract class QuizQuestion {
     public isCorrect(): boolean {
         return this.matcher?.test(this.getCurrentAnswer()) ?? false;
     }
+
+    public getCorrectAnswerDisplay(): string | undefined {
+        return undefined;
+    }
+
+    public getCurrentAnswerDisplay(): string | undefined {
+        return undefined;
+    }
 }
 
 export abstract class QuizQuestionWithOptions extends QuizQuestion {
@@ -91,6 +99,14 @@ export abstract class QuizBooleanQuestion extends QuizQuestionWithOptions {
     public getClassName(): string {
         return "boolean";
     }
+
+    public override getCorrectAnswerDisplay(): string | undefined {
+        return this.question.correctAnswer == "true" ? this.trueText() : this.falseText();
+    }
+
+    public override getCurrentAnswerDisplay(): string | undefined {
+        return this.selected == 1 ? this.trueText() : (this.selected == 2 ? this.falseText() : "");
+    }
 }
 
 export class QuizYesOrNoQuestion extends QuizBooleanQuestion {
@@ -121,6 +137,14 @@ export class QuizMultipleChoiceQuestion extends QuizQuestionWithOptions {
 
     public getClassName(): string {
         return "multiple_choice";
+    }
+
+    public override getCorrectAnswerDisplay(): string | undefined {
+        return this.question.options![Number.parseInt(this.question.correctAnswer!) - 1];
+    }
+
+    public override getCurrentAnswerDisplay(): string | undefined {
+        return this.selected > 0 ? this.question.options![this.selected - 1] : "";
     }
 }
 

@@ -65,7 +65,23 @@
         <div class="results" id="resultsDiv" hidden>
             <p id="score"></p>
 
-            <div id="mistakes"></div>
+            <div>
+                <table id="mistakesTable">
+                    <caption>Your Mistakes</caption>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Question</th>
+                            <th>Your Answer</th>
+                            <th>Correct Answer</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mistakes">
+
+                    </tbody>
+                </table>
+                <p id="perfect" hidden>You got a perfect score!</p>
+            </div>
 
             <p>Reload this page to do another quiz.</p>
         </div>
