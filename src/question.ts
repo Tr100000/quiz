@@ -93,7 +93,10 @@ export abstract class QuizBooleanQuestion extends QuizQuestionWithOptions {
     }
 
     public getCurrentAnswer(): string {
-        return this.selected == 1 ? "true" : (this.selected == 2 ? "false" : "");
+        if (this.selected < 1 || this.selected > 2) {
+            return ""
+        }
+        return this.selected == 1 ? "true" : "false";
     }
 
     public getClassName(): string {
@@ -105,7 +108,15 @@ export abstract class QuizBooleanQuestion extends QuizQuestionWithOptions {
     }
 
     public override getCurrentAnswerDisplay(): string | undefined {
-        return this.selected == 1 ? this.trueText() : (this.selected == 2 ? this.falseText() : "");
+        if (this.selected == 1) {
+            return this.trueText();
+        }
+        else if (this.selected == 2) {
+            return this.falseText();
+        }
+        else {
+            return "";
+        }
     }
 }
 

@@ -102,7 +102,11 @@ function finishQuiz() {
             unanswered++;
         }
     }
-    if (confirm(`Are you really finished?${unanswered > 0 ? `\n\nYou have ${unanswered} unanswered question${unanswered > 1 ? "s" : ""}.` : ""}`)) {
+    let confirmText = "Are you really finished?";
+    if (unanswered > 0) {
+        confirmText += `\n\nYou have ${unanswered} unanswered question${unanswered > 1 ? "s" : ""}`;
+    }
+    if (confirm(confirmText)) {
         main.mainDiv.hidden = true;
         main.resultsDiv.hidden = false;
 
@@ -120,30 +124,34 @@ function finishQuiz() {
 
         document.getElementById("score")!.innerHTML = `Your score: ${Math.round(correct / questions.length * 1000) / 10}% (${correct}/${questions.length})`;
 
-        if (mistakes.length > 0) {
-            for (const mistake of mistakes) {
-                const row = document.createElement("tr");
-                const indexData = document.createElement("td");
-                const questionData = document.createElement("td");
-                const yourAnswerData = document.createElement("td");
-                const correctAnswerData = document.createElement("td");
+        makeMistakesTable(mistakes);
+    }
+}
 
-                indexData.innerHTML = (mistake.index + 1).toString();
-                questionData.innerHTML = mistake.question.text!;
-                yourAnswerData.innerHTML = mistake.getCurrentAnswerDisplay() ?? mistake.getCurrentAnswer();
-                correctAnswerData.innerHTML = mistake.question.correctAnswerDisplay ?? mistake.getCorrectAnswerDisplay() ?? mistake.question.correctAnswer ?? "";
+function makeMistakesTable(mistakes: QuizQuestion[]) {
+    if (mistakes.length > 0) {
+        for (const mistake of mistakes) {
+            const row = document.createElement("tr");
+            const indexData = document.createElement("td");
+            const questionData = document.createElement("td");
+            const yourAnswerData = document.createElement("td");
+            const correctAnswerData = document.createElement("td");
 
-                row.appendChild(indexData);
-                row.appendChild(questionData);
-                row.appendChild(yourAnswerData);
-                row.appendChild(correctAnswerData);
+            indexData.innerHTML = (mistake.index + 1).toString();
+            questionData.innerHTML = mistake.question.text!;
+            yourAnswerData.innerHTML = mistake.getCurrentAnswerDisplay() ?? mistake.getCurrentAnswer();
+            correctAnswerData.innerHTML = mistake.question.correctAnswerDisplay ?? mistake.getCorrectAnswerDisplay() ?? mistake.question.correctAnswer ?? "";
 
-                mistakesTableBody.appendChild(row);
-            }
+            row.appendChild(indexData);
+            row.appendChild(questionData);
+            row.appendChild(yourAnswerData);
+            row.appendChild(correctAnswerData);
+
+            mistakesTableBody.appendChild(row);
         }
-        else {
-            document.getElementById("mistakesTable")!.hidden = true;
-            document.getElementById("perfect")!.hidden = false;
-        }
+    }
+    else {
+        document.getElementById("mistakesTable")!.hidden = true;
+        document.getElementById("perfect")!.hidden = false;
     }
 }

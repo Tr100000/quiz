@@ -7,6 +7,6 @@ export namespace utils {
     }
 
     export function isNullOrWhitespace(input: string): boolean {
-        return !input || !input.trim();
+        return !input?.trim();
     }
 }
