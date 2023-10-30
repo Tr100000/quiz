@@ -29,6 +29,10 @@
         "correctAnswer": {
             "type": "string",
             "description": "The correct answer for the question"
+        },
+        "correctAnswerDisplay": {
+            "type": "string",
+            "description": "The text to display when you make a mistake. Defaults to the correct answer, you should only need this if you want special text to show up or are using regular expressions."
         }
     }
 }
