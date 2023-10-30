@@ -6,7 +6,7 @@
         {
             "randomizeQuestionOrder": true,
             "defaults": {
-                "top_text": "Answer the following question:"  
+                "header": "Answer the following question:"  
             },
             "questions": [
                 {

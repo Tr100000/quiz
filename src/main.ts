@@ -46,7 +46,7 @@ function loadData(quiz: data.QuizData) {
         currentQuizQuestionCount += part.questions.length;
 
         for (const question of part.questions) {
-            question.top_text = question.top_text ?? part.defaults?.top_text;
+            question.header = question.header ?? part.defaults?.header;
             question.type = question.type ?? part.defaults?.type;
             question.text = question.text ?? part.defaults?.text;
             question.options = question.options ?? part.defaults?.options;

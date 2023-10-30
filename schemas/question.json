@@ -6,7 +6,7 @@
     "type": "object",
 
     "properties": {
-        "top_text": {
+        "header": {
             "type": "string",
             "description": "The text to show at the top of the screen"
         },

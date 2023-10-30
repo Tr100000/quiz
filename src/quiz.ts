@@ -42,7 +42,7 @@ export function changeCurrentQuestion(nextQuestion: number) {
         currentQuestionText.innerHTML = `Question ${currentQuestion + 1}`;
     
         const question = questions[currentQuestion].question;
-        topText.innerHTML = question.top_text ?? "";
+        topText.innerHTML = question.header ?? "";
         questionText.innerHTML = question.text ?? "";
     }
 }

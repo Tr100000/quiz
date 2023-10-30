@@ -12,7 +12,7 @@ export namespace data {
     }
     
     export interface Question {
-        top_text: string | undefined;
+        header: string | undefined;
         type: string | undefined;
         text: string | undefined;
         options: string[] | undefined;
