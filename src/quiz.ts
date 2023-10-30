@@ -22,6 +22,23 @@ finishQuizButton.onclick = finishQuiz;
 
 export const mistakesTableBody = document.getElementById("mistakes") as HTMLTableSectionElement;
 
+document.addEventListener("keydown", (e) => {
+    if (e.defaultPrevented) {
+        return;
+    }
+
+    switch (e.key) {
+        case "[":
+            previousQuestion();
+            break;
+        case "]":
+            nextQuestion();
+            break;
+    }
+
+    e.preventDefault();
+});
+
 export function nextQuestion() {
     changeCurrentQuestion(currentQuestion + 1);
 }
