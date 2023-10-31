@@ -35,8 +35,6 @@ document.addEventListener("keydown", (e) => {
             nextQuestion();
             break;
     }
-
-    e.preventDefault();
 });
 
 export function nextQuestion() {
