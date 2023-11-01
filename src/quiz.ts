@@ -71,7 +71,7 @@ export function reset() {
         let questionIndex = 0;
         for (const part of main.currentQuiz.quiz) {
 
-            if (part.randomizeQuestionOrder) {
+            if (part.shuffle) {
                 utils.shuffleArray(part.questions);
             }
             

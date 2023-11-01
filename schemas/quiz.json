@@ -20,7 +20,7 @@
             "items": {
                 "type": "object",
                 "properties": {
-                    "randomizeQuestionOrder": {
+                    "shuffle": {
                         "type": "boolean",
                         "description": "Should the order of the questions be randomized?"
                     },

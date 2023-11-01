@@ -6,7 +6,7 @@ export namespace data {
     }
     
     export interface QuizPart {
-        randomizeQuestionOrder: boolean | undefined;
+        shuffle: boolean | undefined;
         defaults: Question | undefined;
         questions: Question[];
     }

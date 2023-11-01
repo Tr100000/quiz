@@ -4,7 +4,7 @@
     "description": "This is an example quiz!",
     "quiz": [
         {
-            "randomizeQuestionOrder": true,
+            "shuffle": true,
             "defaults": {
                 "header": "Answer the following question:"  
             },
