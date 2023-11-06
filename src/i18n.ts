@@ -27,7 +27,7 @@ async function setLocale(locale: string) {
 }
 
 async function fetchTranslations(locale: string) {
-    return await (await fetch(`/lang/${locale}.json`)).json();
+    return await (await fetch(`/quiz/lang/${locale}.json`)).json();
 }
 
 function translatePage() {
