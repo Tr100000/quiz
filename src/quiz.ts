@@ -1,4 +1,5 @@
 import * as main from "./main.ts";
+import * as i18n from "./i18n.ts";
 import { QuizMultipleChoiceQuestion, QuizQuestion, QuizTextInputQuestion, QuizTrueOrFalseQuestion, QuizYesOrNoQuestion } from "./question.ts";
 import { data } from "./quiz-data.ts";
 import { utils } from "./utils.ts";
@@ -117,9 +118,9 @@ function finishQuiz() {
             unanswered++;
         }
     }
-    let confirmText = "Are you really finished?";
+    let confirmText = i18n.getTranslation("main.finish_confirm");
     if (unanswered > 0) {
-        confirmText += `\n\nYou have ${unanswered} unanswered question${unanswered > 1 ? "s" : ""}`;
+        confirmText += `\n\n${i18n.getTranslation("main.finish_confirm.unanswered").replace("{}", unanswered.toString())}}`;
     }
     if (confirm(confirmText)) {
         main.mainDiv.hidden = true;
@@ -137,7 +138,7 @@ function finishQuiz() {
             }
         }
 
-        document.getElementById("score")!.innerHTML = `Your score: ${Math.round(correct / questions.length * 1000) / 10}% (${correct}/${questions.length})`;
+        document.getElementById("score")!.innerHTML = i18n.getTranslation("results.score").replace("{0}", Math.round(correct/ questions.length * 1000) / 10 + "%").replace("{1}", `${correct}/${questions.length}`);
 
         makeMistakesTable(mistakes);
     }

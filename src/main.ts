@@ -1,6 +1,7 @@
 import { loadDataFromFile, loadDataFromUrl } from "./load-data";
 import { reset } from "./quiz";
 import { data } from "./quiz-data";
+import * as i18n from "./i18n.ts";
 
 export const uploadInput = document.getElementById("upload") as HTMLInputElement;
 export const fileUseButton = document.getElementById("use_file") as HTMLButtonElement;
@@ -34,6 +35,8 @@ fileDiv.hidden = false;
 confirmDiv.hidden = true;
 mainDiv.hidden = true;
 resultsDiv.hidden = true;
+
+i18n.init();
 
 export function parseData(jsonText: string) {
     loadData(JSON.parse(jsonText) as data.QuizData);

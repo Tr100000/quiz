@@ -1,3 +1,4 @@
+import * as i18n from "./i18n.ts";
 import { data } from "./quiz-data.ts";
 
 export abstract class QuizQuestion {
@@ -122,21 +123,21 @@ export abstract class QuizBooleanQuestion extends QuizQuestionWithOptions {
 
 export class QuizYesOrNoQuestion extends QuizBooleanQuestion {
     public override falseText(): string {
-        return "No";
+        return i18n.getTranslation("question.no");
     }
 
     public override trueText(): string {
-        return "Yes";
+        return i18n.getTranslation("question.yes");
     }
 }
 
 export class QuizTrueOrFalseQuestion extends QuizBooleanQuestion {
     public override falseText(): string {
-        return "False";
+        return i18n.getTranslation("question.true");
     }
 
     public override trueText(): string {
-        return "True";
+        return i18n.getTranslation("question.false");
     }
 }
 

@@ -1,0 +1,28 @@
+{
+    "title": "Quiz Player",
+    "file.fromFile": "Load From File",
+    "file.fromUrl": "Load From URL",
+    "file.fromExample": "Load Example",
+    "file.language": "Language",
+    "file.external": "External Links",
+    "file.external.github": "GitHub",
+    "confirm.start": "Start Quiz",
+    "confirm.count": "questions",
+    "main.progress.end": "Finish & Show Results",
+    "main.progress": "Quiz Progress: ",
+    "main.finish_confirm": "Are you really finished?",
+    "main.finish_confirm.unanswered": "Unanswered questions: {}",
+    "results.score": "Your score: {0} ({1})",
+    "results.mistakes": "Your Mistakes",
+    "results.mistakes.index": "#",
+    "results.mistakes.question": "Question",
+    "results.mistakes.answer": "Your Answer",
+    "results.mistakes.correct": "Correct Answer",
+    "results.perfect": "You got a perfect score!",
+    "results.info": "Reload this page to do another quiz or try again.",
+
+    "question.yes": "Yes",
+    "question.no": "No",
+    "question.true": "True",
+    "question.false": "False"
+}
