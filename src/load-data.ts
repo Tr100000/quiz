@@ -1,6 +1,8 @@
 import * as main from "./main";
 
+const uploadInput = document.getElementById("upload") as HTMLInputElement;
 const fileReader = new FileReader();
+
 let isLoadingData = false;
 
 fileReader.onloadend = fileDataLoadFinished;
@@ -8,10 +10,10 @@ fileReader.onerror = fileDataLoadFailed;
 fileReader.onabort = fileDataLoadFailed;
 
 export function loadDataFromFile() {
-    if (!isLoadingData && main.canLoadQuiz && main.uploadInput.files != null && main.uploadInput.files.length > 0) {
+    if (!isLoadingData && uploadInput.files != null && uploadInput.files.length > 0) {
         isLoadingData = true;
 
-        const selectedFile: File = main.uploadInput.files[0];
+        const selectedFile: File = uploadInput.files[0];
         fileReader.readAsText(selectedFile);
     }
 }
@@ -29,7 +31,7 @@ function fileDataLoadFailed() {
 }
 
 export function loadDataFromUrl(url: string) {
-    if (!isLoadingData && main.canLoadQuiz) {
+    if (!isLoadingData) {
         isLoadingData = true;
         
         fetch(new URL(url)).then(r => {

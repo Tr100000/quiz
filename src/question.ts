@@ -1,5 +1,5 @@
 import * as i18n from "./i18n.ts";
-import { data } from "./quiz-data.ts";
+import { data } from "./data.ts";
 
 export abstract class QuizQuestion {
     readonly question: data.Question;

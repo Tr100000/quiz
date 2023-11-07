@@ -1,3 +1,27 @@
 {
-    "title": "日本語"
+    "title": "Quiz Player",
+    "file.use": "使用",
+    "file.fromFile": "ファイルから読み込む",
+    "file.fromUrl": "URLから読み込む",
+    "file.language": "言語",
+    "file.external": "外部リンク",
+    "confirm.start": "始める",
+    "confirm.count": "{}問",
+    "main.progress.end": "終了",
+    "main.progress": "",
+    "main.current": "問題{}",
+    "main.finish_confirm": "本当に終わりですか？",
+    "main.finish_confirm.unanswered": "未回答の質問: {}",
+    "results.score": "あなたの得点: {0} ({1})",
+    "results.mistakes": "あなたの間違い",
+    "results.mistakes.question": "質問",
+    "results.mistakes.answer": "あなたの回答",
+    "results.mistakes.correct": "正しい回答",
+    "results.perfect": "",
+    "results.info": "",
+
+    "question.yes": "はい",
+    "question.no": "いいえ",
+    "question.true": "はい",
+    "question.false": "いいえ"
 }

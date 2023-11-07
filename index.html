@@ -13,21 +13,14 @@
                 <p i18n="file.fromFile">Load From File</p>
                 <section>
                     <input type="file" id="upload" accept=".json" />
-                    <button id="use_file">Use</button>
+                    <button id="use_file" i18n="file.use">Use</button>
                 </section>
             </div>
             <div>
                 <p i18n="file.fromUrl">Load From URL</p>
                 <section>
                     <input type="url" id="file_url" />
-                    <button id="use_url">Use</button>
-                </section>
-            </div>
-            <div>
-                <p i18n="file.fromExample">Load Example</p>
-                <section>
-                    <input type="text" id="example" />
-                    <button id="use_example">Use</button>
+                    <button id="use_url" i18n="file.use">Use</button>
                 </section>
             </div>
             <div>
@@ -47,7 +40,7 @@
             <h1 id="quiz_title"></h1>
             <p id="quiz_description"></p>
             <div>
-                <p><span id="quiz_question_count">0</span> <span i18n="confirm.count">questions</span></p>
+                <p id="quiz_question_count"></p>
                 <button id="quiz_start" i18n="confirm.start">Start Quiz</button>
             </div>
         </div>

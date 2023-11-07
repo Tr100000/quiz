@@ -13,7 +13,7 @@ button, input::file-selector-button, .clickable {
     width: fit-content;
     background-color: gray;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr .4fr .4fr;
     gap: 5px;
 }
 

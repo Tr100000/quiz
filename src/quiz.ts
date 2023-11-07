@@ -1,27 +1,29 @@
-import * as main from "./main.ts";
+import { data } from "./data.ts";
 import * as i18n from "./i18n.ts";
+import * as main from "./main.ts";
 import { QuizMultipleChoiceQuestion, QuizQuestion, QuizTextInputQuestion, QuizTrueOrFalseQuestion, QuizYesOrNoQuestion } from "./question.ts";
-import { data } from "./quiz-data.ts";
 import { utils } from "./utils.ts";
 
-export let currentQuestion: number;
-export let questions: QuizQuestion[];
+let currentQuestion: number;
+let questions: QuizQuestion[];
 
-export const previousQuestionButton = document.getElementById("previous") as HTMLButtonElement;
-export const nextQuestionButton = document.getElementById("next") as HTMLButtonElement;
-export const currentQuestionText = document.getElementById("current_question") as HTMLParagraphElement;
+export const progressBar = document.getElementById("progress") as HTMLProgressElement;
+
+const previousQuestionButton = document.getElementById("previous") as HTMLButtonElement;
+const nextQuestionButton = document.getElementById("next") as HTMLButtonElement;
+const currentQuestionText = document.getElementById("current_question") as HTMLParagraphElement;
 previousQuestionButton.onclick = previousQuestion;
 nextQuestionButton.onclick = nextQuestion;
 
-export const topText = document.getElementById("top_text") as HTMLHeadingElement;
-export const questionText = document.getElementById("question_text") as HTMLHeadingElement;
+const topText = document.getElementById("top_text") as HTMLHeadingElement;
+const questionText = document.getElementById("question_text") as HTMLHeadingElement;
 
-export const questionContentsDiv = document.getElementById("question_contents") as HTMLDivElement;
+const questionContentsDiv = document.getElementById("question_contents") as HTMLDivElement;
 
-export const finishQuizButton = document.getElementById("end") as HTMLButtonElement;
+const finishQuizButton = document.getElementById("end") as HTMLButtonElement;
 finishQuizButton.onclick = finishQuiz;
 
-export const mistakesTableBody = document.getElementById("mistakes") as HTMLTableSectionElement;
+const mistakesTableBody = document.getElementById("mistakes") as HTMLTableSectionElement;
 
 document.addEventListener("keydown", (e) => {
     if (e.defaultPrevented) {
@@ -54,12 +56,15 @@ export function changeCurrentQuestion(nextQuestion: number) {
         currentQuestion = nextQuestion;
         document.getElementById(`q${currentQuestion}`)!.setAttribute("style", "");
     
-        main.progressBar.value = currentQuestion;
-        currentQuestionText.innerHTML = `Question ${currentQuestion + 1}`;
+        progressBar.value = currentQuestion;
+        currentQuestionText.innerHTML = i18n.getTranslation("main.current").replace("{}", (currentQuestion + 1).toString());
     
         const question = questions[currentQuestion].question;
         topText.innerHTML = question.header ?? "";
         questionText.innerHTML = question.text ?? "";
+    }
+    if (nextQuestion >= questions.length) {
+        finishQuiz();
     }
 }
 
@@ -120,7 +125,7 @@ function finishQuiz() {
     }
     let confirmText = i18n.getTranslation("main.finish_confirm");
     if (unanswered > 0) {
-        confirmText += `\n\n${i18n.getTranslation("main.finish_confirm.unanswered").replace("{}", unanswered.toString())}}`;
+        confirmText += `\n\n${i18n.getTranslation("main.finish_confirm.unanswered").replace("{}", unanswered.toString())}`;
     }
     if (confirm(confirmText)) {
         main.mainDiv.hidden = true;

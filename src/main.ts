@@ -1,31 +1,23 @@
-import { loadDataFromFile, loadDataFromUrl } from "./load-data";
-import { reset } from "./quiz";
-import { data } from "./quiz-data";
+import { data } from "./data.ts";
 import * as i18n from "./i18n.ts";
+import { loadDataFromFile, loadDataFromUrl } from "./load-data";
+import { progressBar, reset } from "./quiz";
 
-export const uploadInput = document.getElementById("upload") as HTMLInputElement;
-export const fileUseButton = document.getElementById("use_file") as HTMLButtonElement;
+const fileUseButton = document.getElementById("use_file") as HTMLButtonElement;
 fileUseButton.onclick = loadDataFromFile;
 
-export const fileUrlInput = document.getElementById("file_url") as HTMLInputElement;
-export const urlUseButton = document.getElementById("use_url") as HTMLButtonElement;
+const fileUrlInput = document.getElementById("file_url") as HTMLInputElement;
+const urlUseButton = document.getElementById("use_url") as HTMLButtonElement;
 urlUseButton.onclick = () => loadDataFromUrl(fileUrlInput.value);
-
-export const exampleInput = document.getElementById("example") as HTMLInputElement;
-export const exampleUseButton = document.getElementById("use_example") as HTMLButtonElement;
-exampleUseButton.onclick = () => loadDataFromUrl(`https://raw.githubusercontent.com/Tr100000/quiz/main/examples/${exampleInput.value}`);
 
 export let currentQuiz: data.QuizData;
 export let currentQuizQuestionCount = 0;
-export let canLoadQuiz = true;
 
-export const titleText = document.getElementById("quiz_title") as HTMLHeadingElement;
-export const descriptionText = document.getElementById("quiz_description") as HTMLHeadingElement;
-export const questionCountSpan = document.getElementById("quiz_question_count") as HTMLSpanElement;
-export const quizStartButton = document.getElementById("quiz_start") as HTMLButtonElement;
+const titleText = document.getElementById("quiz_title") as HTMLHeadingElement;
+const descriptionText = document.getElementById("quiz_description") as HTMLHeadingElement;
+const questionCountSpan = document.getElementById("quiz_question_count") as HTMLSpanElement;
+const quizStartButton = document.getElementById("quiz_start") as HTMLButtonElement;
 quizStartButton.onclick = startQuiz;
-
-export const progressBar = document.getElementById("progress") as HTMLProgressElement;
 
 export const fileDiv = document.getElementById("fileDiv") as HTMLDivElement;
 export const confirmDiv = document.getElementById("confirmDiv") as HTMLDivElement;
@@ -60,7 +52,7 @@ function loadData(quiz: data.QuizData) {
 
     titleText.innerHTML = quiz.title;
     descriptionText.innerHTML = quiz.description ?? "";
-    questionCountSpan.innerHTML = currentQuizQuestionCount.toString();
+    questionCountSpan.innerHTML = i18n.getTranslation("confirm.count").replace("{}", currentQuizQuestionCount.toString());
 
     confirmDiv.hidden = false;
     currentQuiz = quiz;
