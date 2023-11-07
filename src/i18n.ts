@@ -1,4 +1,5 @@
 const fallbackLocale = "en";
+const supportedLocales = ["en", "ja"];
 
 let fallbackTranslations: any;
 let translations: any;
@@ -13,7 +14,7 @@ localeSelect.onchange = async () => {
 }
 
 export function init() {
-    locale = browserLocales.find(locale => browserLocales.indexOf(locale) > -1) ?? fallbackLocale;
+    locale = supportedLocales.find(locale => browserLocales.indexOf(locale) > -1) ?? fallbackLocale;
 
     document.addEventListener("DOMContentLoaded", async () => {
         await setLocale(fallbackLocale);
