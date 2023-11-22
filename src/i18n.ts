@@ -1,9 +1,13 @@
+import { i18nInitFinished } from "./main";
+
+const searchParams = new URLSearchParams(window.location.search);
+
 const fallbackLocale = "en";
 const supportedLocales = ["en", "ja"];
 
 let fallbackTranslations: any;
 let translations: any;
-let locale = fallbackLocale;
+let locale = searchParams.get("lang") ?? fallbackLocale;
 
 let browserLocales = navigator.languages.map(locale => locale.split("-")[0]);
 
@@ -14,11 +18,20 @@ localeSelect.onchange = async () => {
 }
 
 export function init() {
-    locale = supportedLocales.find(locale => browserLocales.indexOf(locale) > -1) ?? fallbackLocale;
+    if (!searchParams.get("lang")) {
+        locale = supportedLocales.find(locale => browserLocales.indexOf(locale) > -1) ?? fallbackLocale;
+    }
 
     document.addEventListener("DOMContentLoaded", async () => {
-        await setLocale(fallbackLocale);
-        fallbackTranslations = translations;
+        fallbackTranslations = await fetchTranslations(fallbackLocale);
+        if (fallbackLocale != locale) {
+            await setLocale(locale);
+        }
+        else {
+            translations = fallbackTranslations;
+            translatePage();
+        }
+        i18nInitFinished();
     });
 }
 

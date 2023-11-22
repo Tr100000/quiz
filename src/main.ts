@@ -1,3 +1,5 @@
+const searchParams = new URLSearchParams(window.location.search);
+
 import { data } from "./data.ts";
 import * as i18n from "./i18n.ts";
 import { loadDataFromFile, loadDataFromUrl } from "./load-data";
@@ -23,12 +25,18 @@ export const fileDiv = document.getElementById("fileDiv") as HTMLDivElement;
 export const confirmDiv = document.getElementById("confirmDiv") as HTMLDivElement;
 export const mainDiv = document.getElementById("mainDiv") as HTMLDivElement;
 export const resultsDiv = document.getElementById("resultsDiv") as HTMLDivElement;
-fileDiv.hidden = false;
-confirmDiv.hidden = true;
-mainDiv.hidden = true;
-resultsDiv.hidden = true;
 
 i18n.init();
+
+if (searchParams.has("quiz")) {
+    fileDiv.setAttribute("style", "display: none;");
+}
+
+export function i18nInitFinished() {
+    if (searchParams.has("quiz")) {
+        loadDataFromUrl(searchParams.get("quiz")!);
+    }
+}
 
 export function parseData(jsonText: string) {
     loadData(JSON.parse(jsonText) as data.QuizData);

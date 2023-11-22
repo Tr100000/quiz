@@ -39,10 +39,12 @@ export function loadDataFromUrl(url: string) {
         })
         .then(text => {
             main.parseData(text);
-            isLoadingData = false;
         })
-        .catch(() => {
-            alert("Failed to load data!");
+        .catch(reason => {
+            alert(`Failed to load data!\n${reason}`);
+            console.error(reason);
+        })
+        .finally(() => {
             isLoadingData = false;
         });
     }
