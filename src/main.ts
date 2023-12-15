@@ -2,7 +2,7 @@ const searchParams = new URLSearchParams(window.location.search);
 
 import { data } from "./data.ts";
 import * as i18n from "./i18n.ts";
-import { loadDataFromFile, loadDataFromUrl } from "./load-data";
+import { injectStyleFromUrl, loadDataFromFile, loadDataFromUrl } from "./load-data";
 import { progressBar, reset } from "./quiz";
 
 const fileUseButton = document.getElementById("use_file") as HTMLButtonElement;
@@ -30,6 +30,9 @@ i18n.init();
 
 if (searchParams.has("quiz")) {
     fileDiv.setAttribute("style", "display: none;");
+}
+if (searchParams.has("style")) {
+    injectStyleFromUrl(searchParams.get("style")!);
 }
 
 export function i18nInitFinished() {

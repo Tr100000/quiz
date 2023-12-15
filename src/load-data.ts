@@ -34,7 +34,7 @@ export function loadDataFromUrl(url: string) {
     if (!isLoadingData) {
         isLoadingData = true;
         
-        fetch(new URL(url)).then(r => {
+        fetch(url).then(r => {
             return r.text();
         })
         .then(text => {
@@ -48,4 +48,19 @@ export function loadDataFromUrl(url: string) {
             isLoadingData = false;
         });
     }
+}
+
+export function injectStyleFromUrl(url: string) {
+    fetch(url).then(r => {
+        return r.text();
+    })
+    .then(text => {
+        const styleElement = document.createElement("style");
+        styleElement.innerHTML = text;
+        document.body.appendChild(styleElement);
+    })
+    .catch(reason => {
+        alert(`Failed to inject external CSS!\n${reason}`);
+        console.error(reason);
+    });
 }
