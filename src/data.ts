@@ -18,5 +18,6 @@ export namespace data {
         options: string[] | undefined;
         correctAnswer: string | undefined;
         correctAnswerDisplay: string | undefined;
+        style: string | undefined;
     }
 }

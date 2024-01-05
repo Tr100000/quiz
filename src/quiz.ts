@@ -54,12 +54,12 @@ export function changeCurrentQuestion(nextQuestion: number) {
             document.getElementById(`q${currentQuestion}`)!.setAttribute("style", "display: none;");
         }
         currentQuestion = nextQuestion;
-        document.getElementById(`q${currentQuestion}`)!.setAttribute("style", "");
+        document.getElementById(`q${currentQuestion}`)!.setAttribute("style", questions[nextQuestion].data.style ?? "");
     
         progressBar.value = currentQuestion;
         currentQuestionText.innerHTML = i18n.getTranslation("main.current").replace("{}", (currentQuestion + 1).toString());
     
-        const question = questions[currentQuestion].question;
+        const question = questions[currentQuestion].data;
         topText.innerHTML = question.header ?? "";
         questionText.innerHTML = question.text ?? "";
     }
@@ -159,9 +159,9 @@ function makeMistakesTable(mistakes: QuizQuestion[]) {
             const correctAnswerData = document.createElement("td");
 
             indexData.innerHTML = (mistake.index + 1).toString();
-            questionData.innerHTML = mistake.question.text!;
+            questionData.innerHTML = mistake.data.text!;
             yourAnswerData.innerHTML = mistake.getCurrentAnswerDisplay() ?? mistake.getCurrentAnswer();
-            correctAnswerData.innerHTML = mistake.question.correctAnswerDisplay ?? mistake.getCorrectAnswerDisplay() ?? mistake.question.correctAnswer ?? "";
+            correctAnswerData.innerHTML = mistake.data.correctAnswerDisplay ?? mistake.getCorrectAnswerDisplay() ?? mistake.data.correctAnswer ?? "";
 
             row.appendChild(indexData);
             row.appendChild(questionData);

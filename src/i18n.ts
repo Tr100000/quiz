@@ -1,5 +1,3 @@
-import { i18nInitFinished } from "./main";
-
 const searchParams = new URLSearchParams(window.location.search);
 
 const fallbackLocale = "en";
@@ -11,29 +9,27 @@ let locale = searchParams.get("lang") ?? fallbackLocale;
 
 let browserLocales = navigator.languages.map(locale => locale.split("-")[0]);
 
+if (!searchParams.get("lang")) {
+    locale = supportedLocales.find(locale => browserLocales.indexOf(locale) > -1) ?? fallbackLocale;
+}
+
 const localeSelect = document.getElementById("locale_select") as HTMLSelectElement;
 localeSelect.value = locale;
 localeSelect.onchange = async () => {
     setLocale(localeSelect.value);
 }
 
-export function init() {
-    if (!searchParams.get("lang")) {
-        locale = supportedLocales.find(locale => browserLocales.indexOf(locale) > -1) ?? fallbackLocale;
+document.addEventListener("DOMContentLoaded", async () => {
+    fallbackTranslations = await fetchTranslations(fallbackLocale);
+    if (fallbackLocale != locale) {
+        await setLocale(locale);
     }
-
-    document.addEventListener("DOMContentLoaded", async () => {
-        fallbackTranslations = await fetchTranslations(fallbackLocale);
-        if (fallbackLocale != locale) {
-            await setLocale(locale);
-        }
-        else {
-            translations = fallbackTranslations;
-            translatePage();
-        }
-        i18nInitFinished();
-    });
-}
+    else {
+        translations = fallbackTranslations;
+        translatePage();
+    }
+    document.body.removeAttribute("style");
+});
 
 async function setLocale(locale: string) {
     translations = await fetchTranslations(locale);

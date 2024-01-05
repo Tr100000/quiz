@@ -2,12 +2,12 @@ import * as i18n from "./i18n.ts";
 import { data } from "./data.ts";
 
 export abstract class QuizQuestion {
-    readonly question: data.Question;
+    readonly data: data.Question;
     readonly index: number;
     matcher: RegExp | undefined;
 
     constructor(question: data.Question, index: number) {
-        this.question = question;
+        this.data = question;
         this.index = index;
     }
 
@@ -40,7 +40,7 @@ export abstract class QuizQuestionWithOptions extends QuizQuestion {
     }
 
     public textForOption(i: number): string {
-        return this.question.options![i];
+        return this.data.options![i];
     }
 
     public override setupHtml(): HTMLDivElement {
@@ -105,7 +105,7 @@ export abstract class QuizBooleanQuestion extends QuizQuestionWithOptions {
     }
 
     public override getCorrectAnswerDisplay(): string | undefined {
-        return this.question.correctAnswer == "true" ? this.trueText() : this.falseText();
+        return this.data.correctAnswer == "true" ? this.trueText() : this.falseText();
     }
 
     public override getCurrentAnswerDisplay(): string | undefined {
@@ -152,11 +152,11 @@ export class QuizMultipleChoiceQuestion extends QuizQuestionWithOptions {
     }
 
     public override getCorrectAnswerDisplay(): string | undefined {
-        return this.question.options![Number.parseInt(this.question.correctAnswer!) - 1];
+        return this.data.options![Number.parseInt(this.data.correctAnswer!) - 1];
     }
 
     public override getCurrentAnswerDisplay(): string | undefined {
-        return this.selected > 0 ? this.question.options![this.selected - 1] : "";
+        return this.selected > 0 ? this.data.options![this.selected - 1] : "";
     }
 }
 

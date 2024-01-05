@@ -2,7 +2,7 @@ const searchParams = new URLSearchParams(window.location.search);
 
 import { data } from "./data.ts";
 import * as i18n from "./i18n.ts";
-import { injectStyleFromUrl, loadDataFromFile, loadDataFromUrl } from "./load-data";
+import { injectStyleFromUrl, loadDataFromFile, loadDataFromUrl } from "./loader.ts";
 import { progressBar, reset } from "./quiz";
 
 const fileUseButton = document.getElementById("use_file") as HTMLButtonElement;
@@ -26,8 +26,6 @@ export const confirmDiv = document.getElementById("confirmDiv") as HTMLDivElemen
 export const mainDiv = document.getElementById("mainDiv") as HTMLDivElement;
 export const resultsDiv = document.getElementById("resultsDiv") as HTMLDivElement;
 
-i18n.init();
-
 if (searchParams.has("quiz")) {
     fileDiv.setAttribute("style", "display: none;");
 }
@@ -35,10 +33,8 @@ if (searchParams.has("style")) {
     injectStyleFromUrl(searchParams.get("style")!);
 }
 
-export function i18nInitFinished() {
-    if (searchParams.has("quiz")) {
-        loadDataFromUrl(searchParams.get("quiz")!);
-    }
+if (searchParams.has("quiz")) {
+    loadDataFromUrl(searchParams.get("quiz")!);
 }
 
 export function parseData(jsonText: string) {

@@ -3,36 +3,37 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <title i18n="title">Loading...</title>
         <link rel="stylesheet" type="text/css" href="src/style.css">
-        <title i18n="title">Quiz Player</title>
+        <script type="module" src="src/i18n.ts"></script>
     </head>
 
-    <body>
+    <body style="display: none;">
         <div class="file" id="fileDiv">
             <div>
-                <p i18n="file.fromFile">Load From File</p>
+                <p i18n="file.fromFile"></p>
                 <section>
                     <input type="file" id="upload" accept=".json" />
-                    <button id="use_file" i18n="file.use">Use</button>
+                    <button id="use_file" i18n="file.use"></button>
                 </section>
             </div>
             <div>
-                <p i18n="file.fromUrl">Load From URL</p>
+                <p i18n="file.fromUrl"></p>
                 <section>
                     <input type="url" id="file_url" />
-                    <button id="use_url" i18n="file.use">Use</button>
+                    <button id="use_url" i18n="file.use"></button>
                 </section>
             </div>
             <div>
-                <p i18n="file.language">Language</p>
+                <p i18n="file.language"></p>
                 <select id="locale_select">
                     <option value="en">English</option>
                     <option value="ja">日本語</option>
                 </select>
             </div>
             <div>
-                <p i18n="file.external">External Links</p>
-                <a href="https://github.com/Tr100000/quiz" i18n="file.external.github">GitHub</a>
+                <p i18n="file.external"></p>
+                <a href="https://github.com/Tr100000/quiz" i18n="file.external.github"></a>
             </div>
         </div>
 
@@ -40,17 +41,18 @@
             <h1 id="quiz_title"></h1>
             <p id="quiz_description"></p>
             <div>
+                <button id="quiz_cancel" i18n="confirm.cancel"></button>
                 <p id="quiz_question_count"></p>
-                <button id="quiz_start" i18n="confirm.start">Start Quiz</button>
+                <button id="quiz_start" i18n="confirm.start"></button>
             </div>
         </div>
 
         <div class="main" id="mainDiv" hidden>
             <div class="header">
                 <div class="progress">
-                    <button id="end" i18n="main.progress.end">Finish & Show Results</button>
+                    <button id="end" i18n="main.progress.end"></button>
                     <div>
-                        <label for="progress" class="noselect" i18n="main.progress">Quiz Progress: </label>
+                        <label for="progress" class="noselect" i18n="main.progress"></label>
                         <progress id="progress"></progress>
                     </div>
                 </div>
@@ -71,23 +73,22 @@
 
             <div>
                 <table id="mistakesTable">
-                    <caption i18n="results.mistakes">Your Mistakes</caption>
+                    <caption i18n="results.mistakes"></caption>
                     <thead>
                         <tr>
-                            <th i18n="results.mistakes.index">#</th>
-                            <th i18n="results.mistakes.question">Question</th>
-                            <th i18n="results.mistakes.answer">Your Answer</th>
-                            <th i18n="results.mistakes.correct">Correct Answer</th>
+                            <th i18n="results.mistakes.index"></th>
+                            <th i18n="results.mistakes.question"></th>
+                            <th i18n="results.mistakes.answer"></th>
+                            <th i18n="results.mistakes.correct"></th>
                         </tr>
                     </thead>
                     <tbody id="mistakes">
 
                     </tbody>
                 </table>
-                <p id="perfect" hidden i18n="results.perfect">You got a perfect score!</p>
+                <p id="perfect" hidden i18n="results.perfect"></p>
             </div>
-
-            <p i18n="results.info">Reload this page to do another quiz or try again.</p>
+            <p i18n="results.info"></p>
         </div>
 
         <script type="module" src="/src/main.ts"></script>
