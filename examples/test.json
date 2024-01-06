@@ -2,12 +2,10 @@
     "$schema": "https://raw.githubusercontent.com/Tr100000/quiz/main/schemas/quiz.json",
     "title": "Example Quiz",
     "description": "This is an example quiz!",
+    "styleLink": "https://raw.githubusercontent.com/Tr100000/quiz/main/examples/test.css",
     "quiz": [
         {
             "shuffle": true,
-            "defaults": {
-                "header": "Answer the following question:"  
-            },
             "questions": [
                 {
                     "type": "yes_or_no",

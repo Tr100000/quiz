@@ -2,6 +2,7 @@ export namespace data {
     export interface QuizData {
         title: string;
         description: string | undefined;
+        styleLink: string | undefined;
         quiz: QuizPart[];
     }
     

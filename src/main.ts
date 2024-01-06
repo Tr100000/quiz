@@ -2,7 +2,7 @@ const searchParams = new URLSearchParams(window.location.search);
 
 import { data } from "./data.ts";
 import * as i18n from "./i18n.ts";
-import { loadDataFromFile, loadDataFromUrl } from "./loader.ts";
+import { injectStyleFromUrl, loadDataFromFile, loadDataFromUrl } from "./loader.ts";
 import { progressBar, reset } from "./quiz";
 
 const fileUseButton = document.getElementById("use_file") as HTMLButtonElement;
@@ -28,14 +28,14 @@ export const resultsDiv = document.getElementById("resultsDiv") as HTMLDivElemen
 
 if (searchParams.has("quiz")) {
     fileDiv.setAttribute("style", "display: none;");
-}
-
-if (searchParams.has("quiz")) {
     loadDataFromUrl(searchParams.get("quiz")!);
 }
 
 export function parseData(jsonText: string) {
     loadData(JSON.parse(jsonText) as data.QuizData);
+    if (searchParams.has("autoStartQuiz", "true")) {
+        startQuiz();
+    }
 }
 
 function loadData(quiz: data.QuizData) {
@@ -65,6 +65,10 @@ function loadData(quiz: data.QuizData) {
 
 function startQuiz() {
     if (currentQuiz != null) {
+        if (currentQuiz.styleLink) {
+            injectStyleFromUrl(currentQuiz.styleLink);
+        }
+
         progressBar.value = 0;
         progressBar.max = currentQuizQuestionCount - 1;
 

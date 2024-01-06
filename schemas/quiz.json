@@ -1,8 +1,8 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "https://raw.githubusercontent.com/Tr100000/quiz/main/schemas/quiz.json",
-    "title": "Quiz Data",
-    "description": "Data for quizzez",
+    "title": "Quiz",
+    "description": "Data",
     "type": "object",
 
     "properties": {
@@ -16,7 +16,7 @@
         },
         "quiz": {
             "type": "array",
-            "description": "The quiz data",
+            "description": "The actual data",
             "items": {
                 "type": "object",
                 "properties": {
