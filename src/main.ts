@@ -3,14 +3,14 @@ const searchParams = new URLSearchParams(window.location.search);
 import { data } from "./data.ts";
 import * as i18n from "./i18n.ts";
 import { injectStyleFromUrl, loadDataFromFile, loadDataFromUrl } from "./loader.ts";
-import { progressBar, reset } from "./quiz";
+import { init } from "./quiz";
 
 const fileUseButton = document.getElementById("use_file") as HTMLButtonElement;
-fileUseButton.onclick = loadDataFromFile;
+fileUseButton.addEventListener("click", loadDataFromFile);
 
 const fileUrlInput = document.getElementById("file_url") as HTMLInputElement;
 const urlUseButton = document.getElementById("use_url") as HTMLButtonElement;
-urlUseButton.onclick = () => loadDataFromUrl(fileUrlInput.value);
+urlUseButton.addEventListener("click", () => loadDataFromUrl(fileUrlInput.value));
 
 export let currentQuiz: data.QuizData;
 export let currentQuizQuestionCount = 0;
@@ -19,7 +19,7 @@ const titleText = document.getElementById("quiz_title") as HTMLHeadingElement;
 const descriptionText = document.getElementById("quiz_description") as HTMLHeadingElement;
 const questionCountSpan = document.getElementById("quiz_question_count") as HTMLSpanElement;
 const quizStartButton = document.getElementById("quiz_start") as HTMLButtonElement;
-quizStartButton.onclick = startQuiz;
+quizStartButton.addEventListener("click", startQuiz);
 
 const fileDiv = document.getElementById("fileDiv") as HTMLDivElement;
 const confirmDiv = document.getElementById("confirmDiv") as HTMLDivElement;
@@ -33,14 +33,10 @@ if (searchParams.has("quiz")) {
 
 export function parseData(jsonText: string) {
     loadData(JSON.parse(jsonText) as data.QuizData);
-    if (searchParams.has("autoStartQuiz", "true")) {
-        startQuiz();
-    }
 }
 
 function loadData(quiz: data.QuizData) {
     currentQuizQuestionCount = 0;
-
     for (const part of quiz.quiz) {
         currentQuizQuestionCount += part.questions.length;
 
@@ -55,12 +51,12 @@ function loadData(quiz: data.QuizData) {
         }
     }
 
+    currentQuiz = quiz;
+
     titleText.innerHTML = quiz.title;
     descriptionText.innerHTML = quiz.description ?? "";
     questionCountSpan.innerHTML = i18n.getTranslation("confirm.count").replace("{}", currentQuizQuestionCount.toString());
-
     confirmDiv.hidden = false;
-    currentQuiz = quiz;
 }
 
 function startQuiz() {
@@ -69,10 +65,7 @@ function startQuiz() {
             injectStyleFromUrl(currentQuiz.styleLink);
         }
 
-        progressBar.value = 0;
-        progressBar.max = currentQuizQuestionCount - 1;
-
-        reset();
+        init();
 
         document.body.removeChild(fileDiv);
         document.body.removeChild(confirmDiv);

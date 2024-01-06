@@ -73,7 +73,7 @@ export abstract class QuizQuestionWithOptions extends QuizQuestion {
     }
 }
 
-export abstract class QuizBooleanQuestion extends QuizQuestionWithOptions {
+export abstract class QuizBinaryQuestion extends QuizQuestionWithOptions {
     public abstract falseText(): string;
     public abstract trueText(): string;
 
@@ -121,7 +121,7 @@ export abstract class QuizBooleanQuestion extends QuizQuestionWithOptions {
     }
 }
 
-export class QuizYesOrNoQuestion extends QuizBooleanQuestion {
+export class QuizYesOrNoQuestion extends QuizBinaryQuestion {
     public override falseText(): string {
         return i18n.getTranslation("question.no");
     }
@@ -131,7 +131,7 @@ export class QuizYesOrNoQuestion extends QuizBooleanQuestion {
     }
 }
 
-export class QuizTrueOrFalseQuestion extends QuizBooleanQuestion {
+export class QuizTrueOrFalseQuestion extends QuizBinaryQuestion {
     public override falseText(): string {
         return i18n.getTranslation("question.true");
     }

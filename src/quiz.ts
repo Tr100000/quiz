@@ -7,13 +7,13 @@ import { utils } from "./utils.ts";
 let currentQuestion: number;
 let questions: QuizQuestion[];
 
-export const progressBar = document.getElementById("progress") as HTMLProgressElement;
+const progressBar = document.getElementById("progress") as HTMLProgressElement;
 
 const previousQuestionButton = document.getElementById("previous") as HTMLButtonElement;
 const nextQuestionButton = document.getElementById("next") as HTMLButtonElement;
 const currentQuestionText = document.getElementById("current_question") as HTMLParagraphElement;
-previousQuestionButton.onclick = previousQuestion;
-nextQuestionButton.onclick = nextQuestion;
+previousQuestionButton.addEventListener("click", previousQuestion);
+nextQuestionButton.addEventListener("click", nextQuestion);
 
 const topText = document.getElementById("top_text") as HTMLHeadingElement;
 const questionText = document.getElementById("question_text") as HTMLHeadingElement;
@@ -21,7 +21,7 @@ const questionText = document.getElementById("question_text") as HTMLHeadingElem
 const questionContentsDiv = document.getElementById("question_contents") as HTMLDivElement;
 
 const finishQuizButton = document.getElementById("end") as HTMLButtonElement;
-finishQuizButton.onclick = finishQuiz;
+finishQuizButton.addEventListener("click", finishQuiz);
 
 const mistakesTableBody = document.getElementById("mistakes") as HTMLTableSectionElement;
 
@@ -29,7 +29,6 @@ document.addEventListener("keydown", (e) => {
     if (e.defaultPrevented) {
         return;
     }
-
     switch (e.key) {
         case "[":
             previousQuestion();
@@ -40,15 +39,15 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-export function nextQuestion() {
+function nextQuestion() {
     changeCurrentQuestion(currentQuestion + 1);
 }
 
-export function previousQuestion() {
+function previousQuestion() {
     changeCurrentQuestion(currentQuestion - 1);
 }
 
-export function changeCurrentQuestion(nextQuestion: number) {
+function changeCurrentQuestion(nextQuestion: number) {
     if (nextQuestion >= 0 && nextQuestion < questions.length) {
         if (currentQuestion >= 0) {
             document.getElementById(`q${currentQuestion}`)!.setAttribute("style", "display: none;");
@@ -68,9 +67,10 @@ export function changeCurrentQuestion(nextQuestion: number) {
     }
 }
 
-export function reset() {
+export function init() {
     currentQuestion = -1;
     questionContentsDiv.innerHTML = "";
+    progressBar.max = main.currentQuizQuestionCount - 1;
 
     if (main.currentQuiz != null) {
         questions = new Array(main.currentQuizQuestionCount);

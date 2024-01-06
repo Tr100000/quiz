@@ -9,6 +9,8 @@ let locale = searchParams.get("lang") ?? fallbackLocale;
 
 let browserLocales = navigator.languages.map(locale => locale.split("-")[0]);
 
+export let initFinished = false;
+
 if (!searchParams.get("lang")) {
     locale = supportedLocales.find(locale => browserLocales.indexOf(locale) > -1) ?? fallbackLocale;
 }
@@ -29,6 +31,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         translatePage();
     }
     document.body.removeAttribute("style");
+    initFinished = true;
 });
 
 async function setLocale(locale: string) {
@@ -42,6 +45,7 @@ async function fetchTranslations(locale: string) {
 
 function translatePage() {
     document.querySelectorAll("[i18n]").forEach(translateElement);
+    console.log("Page translated!");
 }
 
 function translateElement(element: Element) {
@@ -50,5 +54,8 @@ function translateElement(element: Element) {
 }
 
 export function getTranslation(key: string): string {
+    if (!(translations || fallbackTranslations)) {
+        return "Oops!";
+    }
     return translations[key] ?? fallbackTranslations[key];
 }
