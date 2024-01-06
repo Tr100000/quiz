@@ -2,7 +2,7 @@ const searchParams = new URLSearchParams(window.location.search);
 
 import { data } from "./data.ts";
 import * as i18n from "./i18n.ts";
-import { injectStyleFromUrl, loadDataFromFile, loadDataFromUrl } from "./loader.ts";
+import { loadDataFromFile, loadDataFromUrl } from "./loader.ts";
 import { progressBar, reset } from "./quiz";
 
 const fileUseButton = document.getElementById("use_file") as HTMLButtonElement;
@@ -21,16 +21,13 @@ const questionCountSpan = document.getElementById("quiz_question_count") as HTML
 const quizStartButton = document.getElementById("quiz_start") as HTMLButtonElement;
 quizStartButton.onclick = startQuiz;
 
-export const fileDiv = document.getElementById("fileDiv") as HTMLDivElement;
-export const confirmDiv = document.getElementById("confirmDiv") as HTMLDivElement;
+const fileDiv = document.getElementById("fileDiv") as HTMLDivElement;
+const confirmDiv = document.getElementById("confirmDiv") as HTMLDivElement;
 export const mainDiv = document.getElementById("mainDiv") as HTMLDivElement;
 export const resultsDiv = document.getElementById("resultsDiv") as HTMLDivElement;
 
 if (searchParams.has("quiz")) {
     fileDiv.setAttribute("style", "display: none;");
-}
-if (searchParams.has("style")) {
-    injectStyleFromUrl(searchParams.get("style")!);
 }
 
 if (searchParams.has("quiz")) {
@@ -73,8 +70,8 @@ function startQuiz() {
 
         reset();
 
-        fileDiv.setAttribute("style", "display: none;");
-        confirmDiv.hidden = true;
+        document.body.removeChild(fileDiv);
+        document.body.removeChild(confirmDiv);
         mainDiv.hidden = false;
     }
 }
